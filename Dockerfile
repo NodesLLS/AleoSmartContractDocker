@@ -21,11 +21,12 @@ RUN cd /root && \
     cd leo && \
     cargo install --path .
 
-# Копирование приложения
-RUN mkdir /root/demo_deploy_Leo_app
-WORKDIR /root/demo_deploy_Leo_app
-COPY . .
+# Копирование скрипта внутрь образа
+COPY deploy_app.sh /root/deploy_app.sh
 
-# Определение команды запуска приложения
-CMD ["leo"]
+# Задание прав на выполнение скрипта
+RUN chmod +x /root/deploy_app.sh
+
+# Определение команды запуска контейнера
+CMD ["tail", "-f", "/dev/null"]
 
