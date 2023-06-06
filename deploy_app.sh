@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# Ввод данных от пользователя
-read -p "Введите адрес Aleo: " WALLETADDRESS
-read -p "Введите приватный ключ Aleo: " PRIVATEKEY
-read -p "Введите код записи (Record): " RECORD
+# User input
+read -p "Enter Aleo address: " WALLETADDRESS
+read -p "Enter Aleo private key: " PRIVATEKEY
+read -p "Enter record code: " RECORD
 
-# Генерируем название приложения
+# Generate application name
 APPNAME="helloworld_${WALLETADDRESS:4:6}"
 echo $APPNAME
 
-# Создаем новое приложение
+# Create a new application
 leo new "$APPNAME"
 
-# Запускаем приложение
+# Run the application
 cd "$APPNAME" && leo run && cd -
 
-# Получаем путь к приложению
+# Get the application path
 PATHTOAPP=$(realpath -q "$APPNAME")
 echo $PATHTOAPP
 cd "$PATHTOAPP" && cd -
 
-# Разворачиваем приложение
+# Deploy the application
 snarkos developer deploy "${APPNAME}.aleo" --private-key "$PRIVATEKEY" --query "$RECORD"
