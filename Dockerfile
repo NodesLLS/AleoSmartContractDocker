@@ -6,14 +6,16 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     screen \
     curl \
     git \
-    build-essential
+    build-essential \
+    dos2unix
 
 # Install SnarkOS
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN git clone https://github.com/AleoHQ/snarkOS.git --depth 1 && \
     cd snarkOS && \
-    ./build_ubuntu.sh
+    ./build_ubuntu.sh && \
+    cargo install --path .
 
 # Install Leo language
 RUN cd /root && \
