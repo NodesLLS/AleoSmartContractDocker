@@ -21,4 +21,4 @@ echo $PATHTOAPP
 cd "$PATHTOAPP" && cd -
 
 # Deploy the application
-snarkos developer deploy "${APPNAME}.aleo" --private-key "$PRIVATEKEY" --query "$RECORD"
+snarkos developer deploy "${APPNAME}.aleo" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --path "./${APPNAME}/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 25000000 --record "${RECORD}"
